@@ -289,7 +289,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void _updateOrderStatus(int id, String newStatus) async {
     final response = await http.put(
       Uri.parse('${AppConfig.apiBaseUrl}/api/orders/$id/status'),
-      headers: {"Content-Type": "application/json"},
+      headers: AppConfig.authHeaders,
       body: jsonEncode({"status": newStatus})
     );
     if (response.statusCode == 200) {
@@ -305,6 +305,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void _deleteOrder(int id) async {
     final response = await http.delete(
       Uri.parse('${AppConfig.apiBaseUrl}/api/orders/$id'),
+      headers: AppConfig.authHeaders,
     );
     if (response.statusCode == 200) {
       setState(() {
@@ -506,7 +507,7 @@ class ProductsView extends StatelessWidget {
             onPressed: () async {
               await http.put(
                 Uri.parse('${AppConfig.apiBaseUrl}/api/products/$id/price'),
-                headers: {"Content-Type": "application/json"},
+                headers: AppConfig.authHeaders,
                 body: jsonEncode({"price_per_kg": _priceCtrl.text})
               );
               Navigator.pop(ctx);
@@ -640,7 +641,7 @@ class ProductsView extends StatelessWidget {
                       try {
                         final response = await http.post(
                           Uri.parse('${AppConfig.apiBaseUrl}/api/products'),
-                          headers: {"Content-Type": "application/json"},
+                          headers: AppConfig.authHeaders,
                           body: jsonEncode({
                             "chicken_type": selectedChickenType,
                             "cut_type": finalCutType,
@@ -697,6 +698,7 @@ class ProductsView extends StatelessWidget {
               try {
                 final response = await http.delete(
                   Uri.parse('${AppConfig.apiBaseUrl}/api/products/$id'),
+                  headers: AppConfig.authHeaders,
                 );
                 Navigator.pop(ctx);
                 if (response.statusCode == 200) {
@@ -808,7 +810,7 @@ class ReportsView extends StatelessWidget {
             onPressed: () async {
               await http.put(
                 Uri.parse('${AppConfig.apiBaseUrl}/api/inventory/hens'),
-                headers: {"Content-Type": "application/json"},
+                headers: AppConfig.authHeaders,
                 body: jsonEncode({
                   "${type}_pieces": _pcsCtrl.text,
                   "${type}_kg": _kgCtrl.text,
