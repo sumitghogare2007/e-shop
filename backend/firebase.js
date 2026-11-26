@@ -23,10 +23,17 @@ function initializeFirebase() {
         // Strategy 1: Raw JSON string or Base64-encoded string in FIREBASE_SERVICE_ACCOUNT_KEY
         if (process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
             let keyStr = process.env.FIREBASE_SERVICE_ACCOUNT_KEY.trim();
+            // Remove any accidental wrapping quotes added by environment inputs
+            if ((keyStr.startsWith('"') && keyStr.endsWith('"')) || (keyStr.startsWith("'") && keyStr.endsWith("'"))) {
+                keyStr = keyStr.slice(1, -1).trim();
+            }
             // Check if base64 encoded
             if (!keyStr.startsWith('{')) {
                 try {
-                    keyStr = Buffer.from(keyStr, 'base64').toString('utf8');
+                    const decoded = Buffer.from(keyStr, 'base64').toString('utf8');
+                    if (decoded.trim().startsWith('{')) {
+                        keyStr = decoded.trim();
+                    }
                 } catch (e) {
                     // Not valid base64, proceed as raw string
                 }

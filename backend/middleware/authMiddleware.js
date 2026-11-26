@@ -3,7 +3,7 @@ require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin';
-const ADMIN_SECRET_KEY = process.env.ADMIN_SECRET_KEY || 'delicious-chicken-admin-secret-2026';
+const ADMIN_SECRET_KEY = process.env.ADMIN_SECRET || process.env.ADMIN_SECRET_KEY || 'delicious-chicken-admin-secret-2026';
 const STRICT_ADMIN_AUTH = process.env.STRICT_ADMIN_AUTH === 'true';
 
 // Simple in-memory rate limiter

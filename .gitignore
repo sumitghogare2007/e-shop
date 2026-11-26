@@ -11,6 +11,10 @@ node_modules/
 *.key
 *serviceAccount*.json
 serviceAccountKey.json
+*credential*
+*secret*
+render_env_base64.txt
+firebase_key_base64.txt
 
 # Local dev database
 data/
