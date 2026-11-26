@@ -1136,7 +1136,7 @@ class _TrackingScreenState extends State<TrackingScreen> with TickerProviderStat
 
   void _connectSocket() {
     socket = IO.io(AppConfig.socketUrl, <String, dynamic>{
-      'transports': ['websocket'],
+      'transports': ['websocket', 'polling'],
       'autoConnect': true,
     });
 

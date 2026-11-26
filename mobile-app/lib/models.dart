@@ -58,7 +58,7 @@ class AppState extends ChangeNotifier {
   void _connectSocket() {
     try {
       socket = IO.io(AppConfig.socketUrl, <String, dynamic>{
-        'transports': ['websocket'],
+        'transports': ['websocket', 'polling'],
         'autoConnect': true,
       });
 
