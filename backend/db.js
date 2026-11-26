@@ -1,5 +1,6 @@
+const path = require('path');
 const mysql = require('mysql2');
-require('dotenv').config();
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 // Create connection pool
 const pool = mysql.createPool({
