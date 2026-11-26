@@ -1,0 +1,37 @@
+name: Verify & Build Admin Panel (Flutter Web)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'admin-panel/**'
+      - '.github/workflows/deploy-admin-panel.yml'
+  workflow_dispatch:
+
+jobs:
+  build-admin-web:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install Dependencies
+        run: |
+          cd admin-panel
+          flutter pub get
+
+      - name: Build Flutter Web Release
+        run: |
+          cd admin-panel
+          flutter build web --release
+
+      - name: Verify Web Build Artifacts
+        run: |
+          test -f admin-panel/build/web/index.html && echo "SUCCESS: Admin Panel Web build verified successfully!"
